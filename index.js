@@ -6,7 +6,7 @@ const PORT = 3000;
 
 app.use(bodyParser.json());
 
-app.post("/webhook", (req, res) => {
+app.post("/webhooks", (req, res) => {
   console.log(req.body);
   res.send("Webhook received");
 });
