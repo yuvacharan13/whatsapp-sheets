@@ -6,6 +6,8 @@ const PORT = 3000;
 
 app.use(bodyParser.json());
 
+const mytoken=process.env.MYTOKEN;
+
 //to verify the callback url from dashboard side - cloud api side
 app.get("/webhook",(req,res)=>{
   const mode=req.query["hub.mode"];
