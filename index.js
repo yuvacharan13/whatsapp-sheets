@@ -6,9 +6,21 @@ const PORT = 3000;
 
 app.use(bodyParser.json());
 
-app.post("/webhooks", (req, res) => {
-  console.log(req.body);
-  res.send("Webhook received");
+//to verify the callback url from dashboard side - cloud api side
+app.get("/webhook",(req,res)=>{
+  const mode=req.query["hub.mode"];
+  const challange=req.query["hub.challenge"];
+  const token=req.query["hub.verify_token"];
+
+   if(mode && token){
+       if(mode==="subscribe" && token===mytoken){
+           res.status(200).send(challange);
+       }else{
+           res.status(403);
+       }
+
+   }
+
 });
 
 app.get("/yuva", (req, res) => {
