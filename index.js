@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+require('dotenv').config();
 
 const app = express();
 const PORT = 3000;
@@ -10,22 +11,26 @@ const mytoken=process.env.MYTOKEN;
 
 //to verify the callback url from dashboard side - cloud api side
 app.get("/webhook",(req,res)=>{
+  console.log("webhook")
   const mode=req.query["hub.mode"];
   const challange=req.query["hub.challenge"];
   const token=req.query["hub.verify_token"];
 
+  console.log(mode,challange,token, mytoken)
+
    if(mode && token){
        if(mode==="subscribe" && token===mytoken){
+        console.log("here")
            res.status(200).send(challange);
        }else{
            res.status(403);
        }
-
    }
 
 });
 
 app.get("/yuva", (req, res) => {
+  console.log("hey yuva")
   res.send("hey yuva path");
 });
 
